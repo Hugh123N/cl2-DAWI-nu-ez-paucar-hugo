@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,12 +62,41 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Boolean update(FilmDetailDto filmDetailDto) {
-        return null;
+        try{
+            Optional<Film> optional=filmRepository.findById(filmDetailDto.filmId());
+            return optional.map(film ->{
+                film.setTitle(filmDetailDto.title());
+                film.setDescription(filmDetailDto.description());
+                film.setReleaseYear(filmDetailDto.releaseYear());
+                film.setRentalDuration(filmDetailDto.rentalDuration());
+                film.setRentalRate(filmDetailDto.rentalRate());
+                film.setLength(filmDetailDto.length());
+                film.setReplacementCost(filmDetailDto.replacementCost());
+                film.setRating(filmDetailDto.rating());
+                film.setSpecialFeatures(filmDetailDto.specialFeatures());
+                film.setLastUpdate(new Date());
+                filmRepository.save(film);
+                return true;
+            }).orElse(null);
+
+        }catch (Exception e){
+            e.getStackTrace();
+            return false;
+        }
     }
 
     @Override
     public Boolean delete(Integer id) {
-        return null;
+        try {
+            Optional<Film> optional=filmRepository.findById(id);
+            optional.ifPresentOrElse(
+                    film -> {
+                        filmRepository.delete(film);
+                    },()->{System.out.println("El registro con el Id "+id+" no existe");});
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        return true;
     }
 
     @Override

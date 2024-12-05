@@ -32,28 +32,12 @@ public class Film {
     @JoinColumn(name = "language_id")
     private Language language;
 
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<FilmActor> filmActors;
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<FilmCategory> filmCategories;
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventory> inventories;
 
-    @Override
-    public String toString() {
-        return "Film{" +
-                "filmId=" + filmId +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", releaseYear=" + releaseYear +
-                ", originalLanguageId=" + originalLanguageId +
-                ", rentalDuration=" + rentalDuration +
-                ", rentalRate=" + rentalRate +
-                ", length=" + length +
-                ", replacementCost=" + replacementCost +
-                ", rating='" + rating + '\'' +
-                ", specialFeatures='" + specialFeatures + '\'' +
-                ", lastUpdate=" + lastUpdate +
-                '}';
-    }
+
 }
