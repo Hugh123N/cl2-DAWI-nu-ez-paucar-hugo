@@ -31,6 +31,8 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<FilmDto> findAll() {
         List<FilmDto> films= new ArrayList<>();
+        System.out.println("-----------------------------------------");
+        System.out.println("------------------LISTADO----------------");
         try {
             Iterable<Film> iterable=filmRepository.findAll();
             iterable.forEach( film ->{
@@ -41,6 +43,8 @@ public class FilmServiceImpl implements FilmService {
                         film.getRentalRate()
                 );
                 films.add(filmDto);
+                String message=String.format("%s-%s;",film.getFilmId(),film.getTitle());
+                System.out.print(message);
             });
         }catch (Exception e){
             e.getStackTrace();
