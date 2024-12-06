@@ -1,9 +1,6 @@
 package edu.hugo.DAWI_CL2.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,16 +8,41 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilmCategory {
+
+    @EmbeddedId
     @Id
+    private FilmCategoryId id;
+    @MapsId("filmId")
     @ManyToOne
     @JoinColumn(name = "film_id")
     private Film film;
-    @Id
-    private Integer categoryId;
+
     private Date lastUpdate;
 
+    public FilmCategoryId getId() {
+        return id;
+    }
+
+    public void setId(FilmCategoryId id) {
+        this.id = id;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 }

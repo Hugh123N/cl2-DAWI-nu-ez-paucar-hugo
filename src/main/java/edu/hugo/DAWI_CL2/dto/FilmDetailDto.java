@@ -15,6 +15,7 @@ public record FilmDetailDto(
         Double replacementCost,
         String rating,
         String specialFeatures,
-        Date lastUpdate
+        Date lastUpdate,
+        Integer categoryId
 ) {
 }

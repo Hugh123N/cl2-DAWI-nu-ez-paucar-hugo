@@ -14,70 +14,82 @@
     </div>
 
     <form th:action="@{/film/create-film}" method="post">
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="title" class="col-sm-3">Título</label>
             <div class="col-sm-9">
-                <input type="text" id="title" class="form-control">
+                <input type="text" id="title" name="title" class="form-control">
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="description" class="col-sm-3">Descripción</label>
             <div class="col-sm-9">
-                <input type="text" id="description" class="form-control">
+                <input type="text" id="description" name="description" class="form-control">
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="releaseYear" class="col-sm-3">Año de liberación</label>
             <div class="col-sm-9">
-                <input type="text" id="releaseYear" class="form-control">
+                <input type="text" id="releaseYear" name="releaseYear" class="form-control">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="languageId" class="col-sm-3">Lenguaje</label>
+            <div class="col-sm-9">
+                <input type="number" id="languageId" name="languageId" class="form-control">
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="rentalDuration" class="col-sm-3">Tiempo de alquiler</label>
             <div class="col-sm-9">
-                <input type="text" id="rentalDuration" class="form-control">
+                <input type="text" id="rentalDuration" name="rentalDuration" class="form-control">
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="rentalRate" class="col-sm-3">Precio de alquiler</label>
             <div class="col-sm-9">
-                <input type="text" id="rentalRate" class="form-control">
+                <input type="text" id="rentalRate" name="rentalRate" class="form-control">
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="length" class="col-sm-3">Duración de película</label>
             <div class="col-sm-9">
-                <input type="text" id="length" class="form-control" >
+                <input type="text" id="length" name="length" class="form-control" >
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="replacementCost" class="col-sm-3">Costo de reposición de película</label>
             <div class="col-sm-9">
-                <input type="text" id="replacementCost" class="form-control">
+                <input type="text" id="replacementCost" name="replacementCost" class="form-control">
             </div>
         </div>
 
-        <div class="mb-3 row">
-            <label for="rating" class="col-sm-3">Categoría</label>
+        <div class="mb-2 row">
+            <label for="rating" class="col-sm-3">Clasificacion</label>
             <div class="col-sm-9">
-                <input type="text" id="rating" class="form-control">
+                <input type="text" id="rating" name="rating" class="form-control">
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="specialFeatures" class="col-sm-3">Características</label>
             <div class="col-sm-9">
-                <input type="text" id="specialFeatures" class="form-control">
+                <input type="text" id="specialFeatures" name="specialFeatures" class="form-control">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="categoryId" class="col-sm-3">Codigo Categoria</label>
+            <div class="col-sm-9">
+                <input type="number" id="categoryId" name="categoryId" class="form-control">
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="btnEdit" class="col-sm-3"></label>
             <div class="col-sm-9">
                 <button type="button" id="btnEdit" class="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#exampleModal">

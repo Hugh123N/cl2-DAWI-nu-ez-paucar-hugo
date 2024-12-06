@@ -3,7 +3,12 @@ package edu.hugo.DAWI_CL2.service.impl;
 import edu.hugo.DAWI_CL2.dto.FilmDetailDto;
 import edu.hugo.DAWI_CL2.dto.FilmDto;
 import edu.hugo.DAWI_CL2.model.Film;
+import edu.hugo.DAWI_CL2.model.FilmCategory;
+import edu.hugo.DAWI_CL2.model.FilmCategoryId;
+import edu.hugo.DAWI_CL2.model.Language;
+import edu.hugo.DAWI_CL2.repository.FilmCategoryRepository;
 import edu.hugo.DAWI_CL2.repository.FilmRepository;
+import edu.hugo.DAWI_CL2.repository.LanguageRepository;
 import edu.hugo.DAWI_CL2.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +23,10 @@ public class FilmServiceImpl implements FilmService {
 
     @Autowired
     FilmRepository filmRepository;
+    @Autowired
+    LanguageRepository languageRepository;
+    @Autowired
+    FilmCategoryRepository filmCategoryRepository;
 
     @Override
     public List<FilmDto> findAll() {
@@ -55,7 +64,8 @@ public class FilmServiceImpl implements FilmService {
                         film.getReplacementCost(),
                         film.getRating(),
                         film.getSpecialFeatures(),
-                        film.getLastUpdate())
+                        film.getLastUpdate(),
+                        0)
         ).orElse(null);
 
     }
@@ -101,6 +111,34 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Boolean save(FilmDetailDto filmDetailDto) {
-        return null;
+        try{
+            Optional<Language> language = languageRepository.findById(filmDetailDto.languageId());
+            if (language.isEmpty()) {
+                throw new IllegalArgumentException("Language not found");
+            }
+            Film film=new Film();
+                film.setTitle(filmDetailDto.title());
+                film.setDescription(filmDetailDto.description());
+                film.setReleaseYear(filmDetailDto.releaseYear());
+                film.setLanguage(language.get());
+                film.setRentalDuration(filmDetailDto.rentalDuration());
+                film.setRentalRate(filmDetailDto.rentalRate());
+                film.setLength(filmDetailDto.length());
+                film.setReplacementCost(filmDetailDto.replacementCost());
+                film.setRating(filmDetailDto.rating());
+                film.setSpecialFeatures(filmDetailDto.specialFeatures());
+                film.setLastUpdate(new Date());
+                Film savedFilm=filmRepository.save(film);
+            FilmCategoryId filmCategoryId = new FilmCategoryId(filmDetailDto.categoryId(), savedFilm.getFilmId());
+            FilmCategory filmCategory = new FilmCategory();
+            filmCategory.setId(filmCategoryId);
+            filmCategory.setFilm(savedFilm);
+            filmCategory.setLastUpdate(new Date());
+            filmCategoryRepository.save(filmCategory);
+            return true;
+        }catch (Exception e){
+            e.getStackTrace();
+            return false;
+        }
     }
 }
